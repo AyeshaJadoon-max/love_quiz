@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Just For You ❤️ – Romantic Love Quiz</title>
+  <meta name="description" content="A beautiful, interactive romantic love quiz made just for you with love, 10 unique questions and 7 stunning visual styles.">
+  <meta name="theme-color" content="#ff85a2">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+
+  <!-- Google Fonts: Outfit, Quicksand, Caveat, Dancing Script, Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Dancing+Script:wght@600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Audio / Sound Toggle -->
+  <div class="sound-toggle-wrapper">
+    <button id="sound-btn" class="sound-btn" aria-label="Toggle romantic sound effects" title="Toggle romantic sound effects">
+      <span class="sound-icon" id="sound-icon">🔔</span>
+      <span class="sound-label">Sound On</span>
+    </button>
+  </div>
+
+  <!-- Background Animated Floating Hearts Canvas -->
+  <canvas id="hearts-canvas"></canvas>
+
+  <!-- Interactive Floating Tap Hearts Container -->
+  <div id="tap-hearts-container" class="tap-hearts-container" aria-hidden="true"></div>
+
+  <!-- Main Application Wrapper -->
+  <main class="quiz-wrapper">
+
+    <!-- ====================================================================
+         SCREEN 1: ROMANTIC WELCOME NOTE 💌
+         ==================================================================== -->
+    <section id="welcome-screen" class="app-screen active" aria-labelledby="welcome-heading">
+      <div class="glass-card welcome-card">
+        
+        <!-- Romantic Floating Pill Badge -->
+        <div class="cute-badge">
+          <span class="badge-sparkle">✨</span>
+          <span>A Special Delivery For You</span>
+          <span class="badge-sparkle">✨</span>
+        </div>
+
+        <h1 id="welcome-heading" class="hero-title">A Little Something For You ❤️</h1>
+
+        <!-- 3D Interactive Animated Envelope in Center -->
+        <div class="envelope-showcase" id="envelope-showcase">
+          <div class="envelope-floating-decorations" aria-hidden="true">
+            <span class="floating-envelope-heart h1">💖</span>
+            <span class="floating-envelope-heart h2">💕</span>
+            <span class="floating-envelope-heart h3">✨</span>
+            <span class="floating-envelope-heart h4">🌸</span>
+            <span class="floating-envelope-heart h5">💗</span>
+          </div>
+
+          <div class="love-envelope" id="love-envelope" role="button" tabindex="0" aria-label="Open Love Envelope">
+            <!-- Envelope Back Wall -->
+            <div class="envelope-back"></div>
+
+            <!-- Envelope Pocket (Front & Sides) -->
+            <div class="envelope-pocket"></div>
+
+            <!-- Floating Hearts Burst on Open -->
+            <div class="envelope-burst-hearts" aria-hidden="true">
+              <span class="burst-h b1">💖</span>
+              <span class="burst-h b2">✨</span>
+              <span class="burst-h b3">💕</span>
+              <span class="burst-h b4">💗</span>
+            </div>
+
+            <!-- Envelope Flap (Swings open 180deg) -->
+            <div class="envelope-flap" id="envelope-flap">
+              <div class="envelope-seal" id="envelope-seal" title="Wax Heart Seal">
+                <span class="seal-icon">❤️</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Personal Love Note (Shown clearly on welcome screen) -->
+        <div class="welcome-personal-note-card">
+          <div class="note-stamp-corner">💌</div>
+          <h2 class="note-salutation">Hey My Favourite Person! 🥹</h2>
+          <div class="note-body-text">
+            <p>I made something special just for you.</p>
+            <p>It's a little collection of questions, smiles, funny moments and lots of love.</p>
+            <p>So take a deep breath, get comfortable and let's see how well you know me!</p>
+            <p class="note-funny">Remember, there are no wrong answers... well, maybe a few! 😂❤️</p>
+            <p class="note-closing">Made with lots of love, just for you.</p>
+          </div>
+        </div>
+
+        <!-- Call To Action Button -->
+        <div class="welcome-action-wrap">
+          <button id="open-heart-btn" class="cute-btn primary-btn pulse-action" type="button">
+            <span class="btn-text">Open My Heart 💌</span>
+          </button>
+        </div>
+
+        <p class="welcome-tip">Tap the envelope or button to begin 💗</p>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 2: QUIZ INTRODUCTION SCREEN 💗
+         ==================================================================== -->
+    <section id="intro-screen" class="app-screen" aria-labelledby="intro-heading">
+      <div class="glass-card intro-card">
+        
+        <div class="cute-badge">
+          <span class="badge-sparkle">🌸</span>
+          <span>Chapter 1: The Challenge</span>
+          <span class="badge-sparkle">🌸</span>
+        </div>
+
+        <!-- Animated Cute Heart Mascot SVG -->
+        <div class="illustration-container">
+          <div class="heart-pulse-glow"></div>
+          <div class="cute-heart-illustration">
+            <svg viewBox="0 0 200 190" class="svg-heart-hero" aria-hidden="true">
+              <defs>
+                <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ff758c" />
+                  <stop offset="50%" stop-color="#ff5884" />
+                  <stop offset="100%" stop-color="#ff4365" />
+                </linearGradient>
+                <linearGradient id="innerShine" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                </linearGradient>
+                <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="8" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+              <!-- Main Heart Shape -->
+              <path class="heart-path" d="M100,175 C100,175 15,120 15,62 C15,26 43,10 70,10 C86,10 95,20 100,30 C105,20 114,10 130,10 C157,10 185,26 185,62 C185,120 100,175 100,175 Z" fill="url(#heartGradient)" filter="url(#softGlow)" />
+              <!-- Highlight Curve -->
+              <path d="M40,35 C55,18 78,20 85,26 C75,25 50,30 38,55 C35,46 36,40 40,35 Z" fill="url(#innerShine)" />
+              <!-- Cute Kawaii Eyes & Smile -->
+              <ellipse cx="70" cy="72" rx="6.5" ry="9" fill="#3d1421" />
+              <ellipse cx="130" cy="72" rx="6.5" ry="9" fill="#3d1421" />
+              <circle cx="68" cy="69" r="2.5" fill="#ffffff" />
+              <circle cx="128" cy="69" r="2.5" fill="#ffffff" />
+              <!-- Blushing Cheeks -->
+              <ellipse cx="56" cy="85" rx="8" ry="4.5" fill="#ffb4c8" opacity="0.9" />
+              <ellipse cx="144" cy="85" rx="8" ry="4.5" fill="#ffb4c8" opacity="0.9" />
+              <!-- Sweet Smile -->
+              <path d="M88,82 Q100,94 112,82" stroke="#3d1421" stroke-width="3.5" stroke-linecap="round" fill="none" />
+              <!-- Little Floating Sparkles -->
+              <polygon points="160,25 163,33 171,36 163,39 160,47 157,39 149,36 157,33" fill="#ffeaa7" class="star-sparkle star-1" />
+              <polygon points="35,80 37,85 42,87 37,89 35,94 33,89 28,87 33,85" fill="#ffeaa7" class="star-sparkle star-2" />
+            </svg>
+          </div>
+        </div>
+
+        <h2 id="intro-heading" class="intro-title">Ready For A Little Challenge? 💗</h2>
+        <p class="intro-subtitle">10 questions, lots of fun, and a little bit of love!</p>
+
+        <!-- Feature Pills -->
+        <div class="intro-pills-row">
+          <div class="intro-pill">
+            <span class="pill-emoji">✨</span>
+            <span>7 Unique Visual Styles</span>
+          </div>
+          <div class="intro-pill">
+            <span class="pill-emoji">🥰</span>
+            <span>No Wrong Answers</span>
+          </div>
+          <div class="intro-pill">
+            <span class="pill-emoji">🎁</span>
+            <span>Sweet Surprise Finale</span>
+          </div>
+        </div>
+
+        <!-- Begin Quiz CTA -->
+        <button id="begin-quiz-btn" class="cute-btn primary-btn pulse-action" type="button">
+          <span class="btn-text">Let's Begin ❤️</span>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 3: MAIN QUIZ (10 QUESTIONS WITH 7 VISUAL STYLES)
+         ==================================================================== -->
+    <section id="quiz-screen" class="app-screen" aria-labelledby="question-text">
+      <div class="glass-card quiz-card-wrapper">
+        
+        <!-- Header Info & Romantic Progress Bar -->
+        <header class="quiz-header">
+          <div class="quiz-top-meta">
+            <div class="tracker-group">
+              <span class="question-tracker">Question <span id="current-q-num" class="highlight-num">01</span> / <span class="total-q-num">10</span></span>
+              <span class="style-badge" id="current-style-badge">Heart Card 💖</span>
+            </div>
+            <span class="progress-pill" id="progress-percent-pill">10%</span>
+          </div>
+
+          <!-- Progress Bar with Track and Floating Heart Node -->
+          <div class="progress-track" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" id="quiz-progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 10%;">
+              <span class="progress-heart-node">💖</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dynamic Question Area (Card style changes dynamically via JS) -->
+        <div class="question-content-container" id="question-container">
+          <!-- Dynamically populated question card with unique styles -->
+        </div>
+
+        <!-- Quiz Navigation Controls -->
+        <footer class="quiz-footer">
+          <button id="prev-btn" class="cute-btn secondary-btn" type="button" aria-label="Go to previous question">
+            <span class="btn-arrow">←</span>
+            <span>Previous</span>
+          </button>
+
+          <button id="next-btn" class="cute-btn primary-btn hidden" type="button" aria-label="Go to next question">
+            <span id="next-btn-text">Next</span>
+            <span class="btn-arrow" id="next-btn-icon">→</span>
+          </button>
+        </footer>
+
+        <!-- Helper hint when user hasn't selected an option -->
+        <p class="selection-hint" id="selection-hint">Tap your answer above to continue ✨</p>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 4: FINAL SURPRISE SCREEN 🎁
+         ==================================================================== -->
+    <section id="result-screen" class="app-screen" aria-labelledby="result-heading">
+      <div class="glass-card result-card">
+        
+        <!-- Celebration Crown / Badge -->
+        <div class="celebration-badge">
+          <span class="confetti-emoji">🎉</span>
+          <span>A Love Story Completed</span>
+          <span class="confetti-emoji">✨</span>
+        </div>
+
+        <!-- 3D Interactive Opening Gift Box Animation -->
+        <div class="gift-box-stage" id="gift-box-stage" aria-hidden="true">
+          <div class="gift-box-sparks">
+            <span class="gift-spark s1">💖</span>
+            <span class="gift-spark s2">✨</span>
+            <span class="gift-spark s3">💕</span>
+            <span class="gift-spark s4">🌸</span>
+            <span class="gift-spark s5">💍</span>
+          </div>
+          <div class="surprise-gift-box open" id="surprise-gift-box">
+            <!-- Lid with golden satin bow -->
+            <div class="gift-lid">
+              <div class="gift-bow">
+                <span class="bow-left"></span>
+                <span class="bow-right"></span>
+                <span class="bow-center"></span>
+              </div>
+              <div class="lid-ribbon"></div>
+            </div>
+            <!-- Box Body with ribbon crossing -->
+            <div class="gift-body">
+              <div class="body-ribbon-v"></div>
+              <div class="body-ribbon-h"></div>
+              <div class="gift-inside-glow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final Heading -->
+        <h1 id="result-heading" class="result-title glowing-text">Awww! You Completed My Little Love Quiz! ❤️</h1>
+
+        <!-- The Romantic Quote / Message Box -->
+        <div class="love-quote-card">
+          <div class="quote-quote-marks left">“</div>
+          <p class="love-message-text">
+            You are my favourite person. No matter how many questions I ask, you will always be my favourite answer. 🥹❤️
+          </p>
+          <div class="quote-quote-marks right">”</div>
+          <div class="love-signature">— Made with lots of love, just for you 💌</div>
+        </div>
+
+        <!-- Summary of all 10 Selected Answers -->
+        <div class="answers-summary-container">
+          <div class="summary-header">
+            <h2 class="summary-title">Your Sweet Answers 🌸</h2>
+            <span class="summary-badge">10 / 10 Answered</span>
+          </div>
+          <div class="summary-list" id="summary-list">
+            <!-- Dynamically populated 10 questions and selected answers -->
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="result-actions">
+          <button id="restart-btn" class="cute-btn primary-btn restart-action" type="button">
+            <span>Play Again 💗</span>
+          </button>
+          <button id="copy-summary-btn" class="cute-btn secondary-btn" type="button" title="Copy this sweet summary to clipboard">
+            <span id="copy-icon">📋</span>
+            <span id="copy-label">Copy Love Note</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
